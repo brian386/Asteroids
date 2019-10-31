@@ -4,11 +4,14 @@ class Asteroid extends GameObject {
   float speed;
 
   Asteroid() {
+    
     size = random(120, 14);
     speed = 5/map(size, 0, 130, 0, 5);
     lives = 1;
+    do{
     location = new PVector(random(width), random(height));
     velocity = new PVector(random(-5, 5), random(-5, 5));
+    } while(dist(location.x, location.y, myShip.location.x, myShip.location.y) < myShip.size/2 + size/2 + 100);
     velocity.setMag(speed);
   }
 
@@ -23,7 +26,7 @@ class Asteroid extends GameObject {
   }
 
   void show() {
-    fill(255);
+    fill(#A58735);
     ellipse(location.x, location.y, size, size);
   }
 
@@ -52,8 +55,11 @@ class Asteroid extends GameObject {
       }
     }
     
-    if(dist(location.x, location.y, myShip.location.x, myShip.location.y) < myShip.size/2 + size/2){
+    if(dist(location.x, location.y, myShip.location.x, myShip.location.y) < myShip.size/2 + size/2 && myShip.invincible < 0){
       myShip.lives--;
+      myShip.location.x = width/2;
+      myShip.location.y = height/2;
+      myShip.invincible = 180;
     }
   }
 }

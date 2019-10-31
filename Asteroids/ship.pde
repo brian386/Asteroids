@@ -6,16 +6,23 @@ class Ship extends GameObject{
   PVector direction;
   int shotTimer;
   int threshold;
+  int invincible;
   Ship(){
-    lives = 1;
+    lives = 5;
     location = new PVector(400, 300);
     velocity = new PVector(0,0);
     direction = new PVector(0, -0.1);
-    threshold = 15;
+    threshold = 12;
     size = 40;
   }
   
   void show(){
+    if(invincible >= 0){
+      stroke(255);
+      noFill();
+      ellipse(location.x, location.y, 2*size, 2*size);
+      noStroke();
+    }
     pushMatrix();
     translate(location.x, location.y);
     rotate(direction.heading());
@@ -24,6 +31,7 @@ class Ship extends GameObject{
     popMatrix();
   }
   void act(){
+    invincible--;
     location.add(velocity);
     
     if(upkey) velocity.add(direction);

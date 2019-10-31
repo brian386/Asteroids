@@ -13,9 +13,7 @@ void setup() {
   imageMode(CENTER);
   gList = new ArrayList<GameObject>();
   
-  //gList.add(new Asteroid());
-  //gList.add(new Asteroid());
-  //gList.add(new Asteroid());
+  gList.add(new Asteroid());
   gList.add(new UFO());
 
 } 

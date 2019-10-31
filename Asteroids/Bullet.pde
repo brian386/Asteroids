@@ -35,9 +35,8 @@ class EnemyBullet extends GameObject{
     //FIX THE ANGLE CALC
     //float s = myShip.location.x >= _x? atan((myShip.location.y - _y)/(myShip.location.x - _x)) + atan(myShip.velocity.y/myShip.velocity.x): 180 -atan((myShip.location.y - _y)/(myShip.location.x - _x)) + atan(myShip.velocity.y/myShip.velocity.x);
    // float angleRSB =  atan((myShip.location.y - _y)/(myShip.location.x - _x)) + atan(myShip.velocity.y/myShip.velocity.x);
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////float angleRSB = PVector.angleBetween(velocity.mult(-1), myShip.velocity);
     float angleRSB = acos(myShip.velocity.dot((velocity.mult(-1)))/velocity.mag() / myShip.velocity.mag());
-    float bSpeed = 6;
+    float bSpeed = 5;
 
     
     float a = pow(bSpeed, 2) - pow(myShip.velocity.mag(), 2);
@@ -63,8 +62,11 @@ class EnemyBullet extends GameObject{
   void act(){
     location.add(velocity);
 
-    if(dist(location.x, location.y, myShip.location.x, myShip.location.y) < myShip.size/2 + size/2){
-      //myShip.lives--;
+    if(dist(location.x, location.y, myShip.location.x, myShip.location.y) < myShip.size/2 + size/2 && myShip.invincible < 0){
+      myShip.lives--;
+      myShip.location.x = width/2;
+      myShip.location.y = height/2;
+      myShip.invincible = 180;
     }
     if(location.x > width || location.y < 0 || location.x < 0 || location.y > height){
       lives = 0;
